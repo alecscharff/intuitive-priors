@@ -7,43 +7,44 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
+    <style>
+        ul {
+            margin-top: 0;
+            padding-left: 20px; /* Adjust as needed */
+        }
+        ul li {
+            margin-bottom: 0.5em; /* Adjust this value to control the spacing */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="explanation">
             <div class="explanation-content">
-                <h1>Derive beta priors from intuition</h1>
+                <h1>Intuitive priors generator</h1>
                 <p>
-                    This tool helps you quantify your prior beliefs or observations for use in Bayesian A/B testing with the beta-binomial framework. 
+                   This tool helps you define a beta distribution by using an intuitive description uncertainty, rather than unintuitive parameters.
                 </p>
-                <p>
-                    Express your "best guess" and uncertainty bounds to convert them into appropriate α and β parameters (from the  <a href="https://en.wikipedia.org/wiki/Beta_distribution" class="elegant-link">
-                        beta distribution 
-                        </a>) to use as priors.
-                </p>
-                <p>
-                    <strong>Use this tool when:</strong>
-                </p>
+                
+                <p><strong>Use this tool when:</strong></p>
                 <ul>
-                    <li>
-                        You're planning a 
-                        <a href="https://alecscharff.github.io/bayes-ux-calculator/" class="elegant-link">
-                        Bayesian analysis or comparison of proportions 
-                        </a>    
-                        (such as task completion rates, conversion rates, or agreement percentages)
-                    </li>
-                    <li>
-                        You have intuitions about likely values but need to express them as beta distribution parameters
-                    </li>
-                    <li>
-                        You want to ensure your prior beliefs are properly quantified before collecting new data
-                    </li>
+                    <li>You are studying a proportion or percentage, such as task completion rates, or rate of agreement with a survey item.</li>
+                    <li>You have an intuitive sense of the likely value of this proportion: a best guess, and a general range of what reasonable outcomes could be.</li>
+                    <li>For example, you might guess that 80% of people will complete a given task, and you'd be surprised if fewer than 70% or more than 90% will complete.</li>
+                    <li>You can use this intuition sense to define a beta distribution that can be used as a prior in a Bayesian analysis.</li>
+                </ul>
+
+                <p><strong>Why use a prior distribution:</strong></p>
+                <ul>
+                    <li>By ruling out unreasonable values, you can sharpen your statistical inferences. For example, you might be able to report 95% chance of being directionally correct rather than 90% chance, because you reduced some uncertainty.</li>
+                    <li>Using priors is mathematically equivalent to collecting more data, so you can think of this as increasing the sample size of your study, for free.</li>
+                    <li>If you are uncomfortable with the idea, you can use a weak prior: Just provide a very large range of reasonable values.</li>
                 </ul>
             </div>
         </div>
         <div class="content">
             <div class="input-pane">
-                <h2>Enter intuitive judgments</h2>
+                <h2>Input your assumptions</h2>
                 <div class="input-group">
                     <label for="single_estimate">If I had to make a single estimate, I'd say the proportion is:</label>
                     <input type="number" id="single_estimate" min="0" max="1" step="0.01" value="0.5">
@@ -61,8 +62,8 @@
 
             <div class="results">
                 <div class="card">
-                    <h2>Prior Distribution</h2>
-                    <div id="chart"></div>
+                    <h2>Best-fitting beta distribution:</h2>
+                    <div class="chart-container" id="chart"></div>
                 </div>
                 <div class="card">
                     <h2>Distribution Details</h2>

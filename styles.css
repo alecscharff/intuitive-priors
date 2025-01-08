@@ -1,5 +1,5 @@
 /* Import modern font */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans:wght@400;500;600;700&display=swap");
 
 /* Reset and Base Styles */
 * {
@@ -9,7 +9,7 @@
 }
 
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Source Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: #f8fafc;
   color: #1e293b;
   line-height: 1.6;
@@ -44,10 +44,15 @@ body {
   line-height: 1.2;
 }
 
-.explanation-content p {
+explanation-content p {
   color: #475569;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5em;
   font-size: 1.125rem;
+}
+
+.explanation-content strong {
+  display: block; /* Ensure the strong element behaves like a block element */
+  margin-top: 0.75rem; /* Adjust this value to control the spacing before the strong element */
 }
 
 /* Links */
@@ -64,25 +69,25 @@ body {
 
 /* Content Grid */
 .content {
-  display: grid;
-  grid-template-columns: 350px 1fr;
+  display: flex;
   gap: 2rem;
+  align-items: flex-start;  /* Align items to the top */
   margin: 2rem 0;
+}
+
+.input-pane, .results {
+  flex: 1;
+}
+
+.input-pane h2, .results h2 {
+  margin-top: 0;  /* Remove top margin from headings */
+  margin-bottom: 1rem;  /* Add consistent bottom margin */
 }
 
 /* Input Section */
 .input-pane {
   background-color: #fff;
   padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-  height: fit-content;
-}
-
-.input-pane h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #0f172a;
   margin-bottom: 1.5rem;
 }
 
@@ -194,7 +199,7 @@ td {
 }
 
 .additional-explanation h2 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: #0f172a;
   margin-bottom: 1.5rem;
@@ -235,4 +240,18 @@ footer {
   border-top: 1px solid #e2e8f0;
   color: #64748b;
   font-size: 0.875rem;
+}
+
+/* List Styles */
+ul {
+  margin-top: .3em;
+}
+
+ul li {
+  margin-bottom: .5em; /* Adjust this value to control the spacing */
+}
+
+h4 {
+  padding-top: 1em; /* Adjust this value to control the padding above the table header */
+  padding-bottom: 0em; /* Adjust this value to control the padding below the table header */
 }

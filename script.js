@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </table>
 
             <h3>Equivalent Data Collection</h3>
-            <p>This distribution is equivalent to having observed ${equivalentSuccesses} successes 
+            <p>Using a prior is equivalent to having collected some additional data. In this case, the prior is equivalent to having observed ${equivalentSuccesses} successes 
             in ${totalEquivalentSamples} trials.</p>
         `;
 
@@ -145,15 +145,16 @@ document.addEventListener('DOMContentLoaded', function() {
             x: x,
             y: y,
             type: 'scatter',
-            mode: 'lines',
-            showlegend: false  // Remove legend
         };
 
         const layout = {
-            xaxis: { title: 'Proportion' },
-            yaxis: { title: 'Density' },
-            margin: { t: 10, r: 10, b: 50, l: 60 },  // Adjust margins
-            responsive: true  // Ensure the plot resizes adaptively
+            title: 'Beta Distribution',
+            margin: {
+                l: 30, // left margin
+                r: 30, // right margin
+                t: 30, // top margin
+                b: 30  // bottom margin
+            }
         };
 
         Plotly.newPlot('chart', [trace], layout);
