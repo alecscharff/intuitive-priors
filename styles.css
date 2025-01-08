@@ -27,13 +27,13 @@ body {
 .explanation {
   background-color: #fff;
   border-bottom: 1px solid #e2e8f0;
-  padding: 3rem 2rem;  /* Changed padding to align with content */
+  padding: 3rem 0;
 }
 
 .explanation-content {
-  max-width: 1200px;  /* Match container max-width */
+  max-width: 800px;
   margin: 0 auto;
-  padding: 0;  /* Remove padding to align with content */
+  padding: 0 2rem;
 }
 
 .explanation-content h1 {
@@ -47,24 +47,7 @@ body {
 .explanation-content p {
   color: #475569;
   margin-bottom: 1.25rem;
-  font-size: 14px;  /* Set consistent body text size */
-}
-
-/* Additional styles for explanation list */
-.explanation-content ul {
-    list-style-type: disc;
-    margin-left: 1.5rem;
-    margin-bottom: 1.25rem;
-}
-
-.explanation-content li {
-    color: #475569;
-    margin-bottom: 0.75rem;
-    font-size: 14px;  /* Set consistent body text size */
-}
-
-.explanation-content li:last-child {
-    margin-bottom: 0;
+  font-size: 1.125rem;
 }
 
 /* Links */
@@ -109,14 +92,14 @@ body {
 
 .input-group label {
   display: block;
-  font-size: 14px;  /* Set consistent body text size */
+  font-size: 0.875rem;
   font-weight: 500;
   color: #475569;
   margin-bottom: 0.5rem;
 }
 
 input[type="number"] {
-  width: 30%; /* Make the number input boxes narrower */
+  width: 100%;
   padding: 0.75rem;
   border: 1px solid #e2e8f0;
   border-radius: 0.5rem;
@@ -166,7 +149,6 @@ button:disabled {
   border-radius: 1rem;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
   margin-bottom: 1.5rem;
-  word-wrap: break-word; /* Ensure text wraps adaptively */
 }
 
 .card h2 {
@@ -228,10 +210,6 @@ td {
   color: #dc2626;
   font-size: 0.875rem;
   margin-top: 0.5rem;
-}
-
-h4 {
-  margin-top: 1.5rem; /* Add spacing above each h4 */
 }
 
 /* Responsive Design */
