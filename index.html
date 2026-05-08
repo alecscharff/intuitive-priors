@@ -1,81 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intuition-based Bayesian Prior Calculator</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
-    <style>
-        ul {
-            margin-top: 0;
-            padding-left: 20px; /* Adjust as needed */
-        }
-        ul li {
-            margin-bottom: 0.5em; /* Adjust this value to control the spacing */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intuition-based Bayesian Prior Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="explanation">
-            <div class="explanation-content">
-                <h1>Intuitive priors generator</h1>
-                <p>
-                   This tool helps you define a beta distribution by using an intuitive description of uncertainty, rather than unintuitive parameters.
-                </p>
-                
-                <p><strong>Use this tool when:</strong></p>
-                <ul>
-                    <li>You are studying a proportion or percentage, such as task completion rates, or rate of agreement with a survey item.</li>
-                    <li>You have an intuitive sense of the likely value of this proportion: a best guess, and a general range of what reasonable outcomes could be.</li>
-                    <li>For example, you might guess that 80% of people will complete a given task, and you'd be surprised if fewer than 70% or more than 90% will complete.</li>
-                    <li>You can use this intuition sense to define a beta distribution that can be used as a prior in a Bayesian analysis.</li>
-                </ul>
 
-                <p><strong>Why use a prior distribution:</strong></p>
-                <ul>
-                    <li>By ruling out unreasonable values, you can sharpen your statistical inferences. For example, you might be able to report 95% chance of being directionally correct rather than 90% chance, because you reduced some uncertainty.</li>
-                    <li>Using priors is mathematically equivalent to collecting more data, so you can think of this as increasing the sample size of your study, for free.</li>
-                    <li>If you are uncomfortable with the idea, you can use a weak prior: Just provide a very large range of reasonable values.</li>
-                </ul>
-            </div>
-        </div>
-        <div class="content">
-            <div class="input-pane">
-                <h2>Input your assumptions</h2>
-                <div class="input-group">
-                    <label for="single_estimate">If I had to make a single estimate, I'd say the proportion is:</label>
-                    <input type="number" id="single_estimate" min="0" max="1" step="0.01" value="0.5">
-                </div>
-                <div class="input-group">
-                    <label for="lower_bound">I would be surprised if the value is lower than:</label>
-                    <input type="number" id="lower_bound" min="0" max="1" step="0.01" value="0.3">
-                </div>
-                <div class="input-group">
-                    <label for="upper_bound">...or higher than:</label>
-                    <input type="number" id="upper_bound" min="0" max="1" step="0.01" value="0.7">
-                </div>
-                <button id="calculate">Calculate</button>
-            </div>
+<button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+  <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+  <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
 
-            <div class="results">
-                <div class="card">
-                    <h2>Best-fitting beta distribution:</h2>
-                    <div class="chart-container" id="chart"></div>
-                </div>
-                <div class="card">
-                    <h2>Distribution Details</h2>
-                    <div id="stats"></div>
-                </div>
-            </div>
-        </div>
+<div class="explanation">
+  <div class="explanation-content">
+    <h1>Intuitive priors generator</h1>
+    <p>Turn an intuitive guess — a single estimate plus a plausible range — into Beta(α, β) parameters you can drop straight into a Bayesian analysis.</p>
+
+    <p><strong>Use this tool when:</strong></p>
+    <ul>
+      <li>You are studying a proportion, such as task completion rates or survey agreement.</li>
+      <li>You have an intuitive sense of the likely value: a best guess and a range of plausible outcomes.</li>
+      <li>For example, you might guess 80% task completion, and would be surprised below 70% or above 90%.</li>
+    </ul>
+
+    <p><strong>Why use a prior:</strong></p>
+    <ul>
+      <li>Ruling out unreasonable values sharpens inference — you may report 95% directional confidence instead of 90%.</li>
+      <li>A prior is mathematically equivalent to extra data, effectively increasing your sample size for free.</li>
+      <li>Uncomfortable with strong priors? Provide a very wide range to get a weak, nearly-flat prior.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+  <div class="content">
+
+    <div class="input-pane">
+      <h2>Enter your assumptions</h2>
+      <div class="input-group">
+        <label for="single_estimate">If I had to make a single estimate, the proportion is:</label>
+        <input type="number" id="single_estimate" min="0" max="1" step="0.01" value="0.5">
+        <span class="error-message" id="error_single_estimate"></span>
+      </div>
+      <div class="input-group">
+        <label for="lower_bound">I would be surprised if the value is lower than:</label>
+        <input type="number" id="lower_bound" min="0" max="1" step="0.01" value="0.3">
+        <span class="error-message" id="error_lower_bound"></span>
+      </div>
+      <div class="input-group">
+        <label for="upper_bound">...or higher than:</label>
+        <input type="number" id="upper_bound" min="0" max="1" step="0.01" value="0.7">
+        <span class="error-message" id="error_upper_bound"></span>
+      </div>
+      <span class="error-message" id="error_global"></span>
     </div>
-    <script src="script.js"></script>
-</body>
-<footer>
-    <p>&copy; 2024 Alec Scharff. All rights reserved.</p>
-  </footer>
 
+    <div class="results">
+      <div class="card">
+        <h2>Best-fitting beta distribution</h2>
+        <div class="chart-container" id="chart"></div>
+        <p class="explainer">The shaded region shows the central 90% of the distribution — values within this band are where the true proportion is most likely to fall.</p>
+      </div>
+
+      <div class="card">
+        <h2>Distribution details</h2>
+        <div id="stats"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>&copy; Alec Scharff</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
 </html>
